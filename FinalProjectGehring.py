@@ -8,7 +8,7 @@ class Suit:
 
         @property
         def description(self):
-            return self.description
+            return self._description
         
         @property
         def symbol(self):
@@ -29,12 +29,12 @@ class Card:
     
     @property
     def value(self):
-        return self.value
+        return self._value
     
     def show(self):
         card_value = self._value
-        card_suit = self._suit.description.capitalize()
-        suit_symbol = self._suit.symbol
+        card_suit = self._suit._description.capitalize()
+        suit_symbol = self._suit._symbol
 
         if self.is_special():
             card_description = Card.special_cards[card_value]
@@ -78,7 +78,7 @@ class Deck:
         random.shuffle(self._cards)
 
     def draw(self):
-        if self.cards:
+        if self._cards:
             return self._cards.pop()
         else:
             return None
@@ -170,7 +170,7 @@ class WarCardGame:
         else:
             return WarCardGame.TIE
     
-    def get_card_won(self, player_card, computer_card, previous_cards):
+    def get_cards_won(self, player_card, computer_card, previous_cards):
         if previous_cards:
             return [player_card, computer_card] + previous_cards
         else:
@@ -228,7 +228,7 @@ deck = Deck()
 
 game = WarCardGame(player, computer, deck)
 
-game.print_weclome_message
+game.print_welcome_message
 
 while not game.check_game_over():
     game.start_battle()
